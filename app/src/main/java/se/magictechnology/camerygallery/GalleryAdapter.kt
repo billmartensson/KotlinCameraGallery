@@ -3,8 +3,8 @@ package se.magictechnology.camerygallery
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.gallery_item.view.*
 
 class GalleryAdapter() : RecyclerView.Adapter<GalleryViewHolder>() {
 
@@ -43,6 +43,6 @@ class GalleryAdapter() : RecyclerView.Adapter<GalleryViewHolder>() {
 }
 
 class GalleryViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-    var galleryitemimage = view.galleryItemImage
+    var galleryitemimage = view.findViewById<ImageView>(R.id.galleryItemImage)
 
 }

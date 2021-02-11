@@ -22,11 +22,13 @@ import android.os.Handler
 import android.provider.Settings
 import android.view.Surface
 import android.view.SurfaceHolder
+import android.view.SurfaceView
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 
@@ -44,9 +46,11 @@ class CameraActivity : AppCompatActivity() {
             return
         }
 
+        val surfaceView = findViewById<SurfaceView>(R.id.surfaceView)
+
         surfaceView.holder.addCallback(surfaceReadyCallback)
 
-        takePhotoBtn.setOnClickListener {
+        findViewById<Button>(R.id.takePhotoBtn).setOnClickListener {
             imageReader.acquireLatestImage()?.let { image ->
                 val buffer = image.planes[0].buffer
                 val byteArray = ByteArray(buffer.capacity())
@@ -67,7 +71,7 @@ class CameraActivity : AppCompatActivity() {
 
                 val bitmap = BitmapFactory.decodeByteArray(jpgBytes, 0, jpgBytes.size)
 
-                cameraImage.setImageBitmap(bitmap)
+                this.findViewById<ImageView>(R.id.cameraImage).setImageBitmap(bitmap)
 
             }
 
@@ -181,7 +185,7 @@ class CameraActivity : AppCompatActivity() {
                             val rotatedPreviewHeight =
                                 if (swappedDimensions) previewSize.width else previewSize.height
 
-                            surfaceView.holder.setFixedSize(
+                            findViewById<SurfaceView>(R.id.surfaceView).holder.setFixedSize(
                                 rotatedPreviewWidth,
                                 rotatedPreviewHeight
                             )
@@ -201,7 +205,7 @@ class CameraActivity : AppCompatActivity() {
 
                             }, Handler { true })
 
-                            val previewSurface = surfaceView.holder.surface
+                            val previewSurface = findViewById<SurfaceView>(R.id.surfaceView).holder.surface
                             val recordingSurface = imageReader.surface
 
                             val captureCallback = object : CameraCaptureSession.StateCallback() {

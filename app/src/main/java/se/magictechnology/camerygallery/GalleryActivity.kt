@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_gallery.*
+import androidx.recyclerview.widget.RecyclerView
 
 class GalleryActivity : AppCompatActivity() {
 
@@ -24,6 +25,7 @@ class GalleryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gallery)
 
         adapter.galleryactivity = this
+        var galleryRV = findViewById<RecyclerView>(R.id.galleryRV)
         galleryRV.layoutManager = LinearLayoutManager(this)
         galleryRV.adapter = adapter
 
@@ -50,7 +52,7 @@ class GalleryActivity : AppCompatActivity() {
 
     fun imageSelected(imagenumber : Int)
     {
-        galleryImage.setImageURI(imageUris!![imagenumber])
+        findViewById<ImageView>(R.id.galleryImage).setImageURI(imageUris!![imagenumber])
     }
 
     override fun onRequestPermissionsResult(
